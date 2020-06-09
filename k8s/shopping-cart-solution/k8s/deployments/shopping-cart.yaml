@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    version: v1
+    app: shopping-cart
+  name: shopping-cart
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: shopping-cart
+  template:
+    metadata:
+      labels:
+        app: shopping-cart
+        version: v1
+        stack: echo
+        interface: rest
+        language: golang
+    spec:
+      volumes:
+        - name: data-config
+          configMap:
+            name: shopping-cart-config
+            optional: false
+      containers:
+        - image: claudioed/micro:latest
+          imagePullPolicy: Always
+          env:
+            - name: APP_CONFIG_PATH
+              value: /tmp/micro/config.json
+          volumeMounts:
+            - mountPath: /tmp/micro
+              name: data-config
+          resources:
+            requests:
+              memory: "5Mi"
+              cpu: "10m"
+            limits:
+              memory: "10Mi"
+              cpu: "20m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 9999
+              scheme: HTTP
+            initialDelaySeconds: 1
+          name: shopping-cart
+          ports:
+            - containerPort: 9999
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 9999
+              scheme: HTTP
+            initialDelaySeconds: 1

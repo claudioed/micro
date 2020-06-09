@@ -1,0 +1,1 @@
+# Simple Microservice that can be used for Istio Demo Purpose

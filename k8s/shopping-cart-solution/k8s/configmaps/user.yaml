@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+data:
+  config.json: |
+    {
+       "name": "user",
+       "version" : "v1",
+       "apps": []
+    }

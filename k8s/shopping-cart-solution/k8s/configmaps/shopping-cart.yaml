@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shopping-cart-config
+data:
+  config.json: |
+    {
+       "name": "shopping-cart",
+       "version" : "v1",
+       "apps": [
+         {"name": "location","url": "http://location:9999/api/data"},
+         {"name": "payment","url": "http://payment:9999/api/data"},
+         {"name": "inventory","url": "http://inventory:9999/api/data"},
+         {"name": "order","url": "http://order:9999/api/data"},
+         {"name": "customer","url": "http://customer:9999/api/data"},
+         {"name": "back-office","url": "http://back-office:9999/api/data"}
+       ]
+    }

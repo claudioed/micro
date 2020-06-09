@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-config
+data:
+  config.json: |
+    {
+       "name": "order",
+       "version" : "v1",
+       "apps": []
+    }
